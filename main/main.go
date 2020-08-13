@@ -105,10 +105,11 @@ func main() {
 				stat := d.Raw(`SELECT COUNT (f.name) as Count,f.name from future_programs f group by f.name`).Scan(&result)
 				logrus.Info(stat.RowsAffected)
 				client := resty.New()
-				_, _ = client.R().
+				_, err := client.R().
 					SetHeader("Content-Type", "application/json").
 					SetBody(Request{Data: result}).
-					Post("'localhost:5556/update-scoreboard")
+					Post("http://perfutility-6.perf.lokal:5556/update-scoreboard")
+				logrus.Info(err)
 			case <-quit:
 				ticker.Stop()
 				return
