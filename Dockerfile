@@ -9,9 +9,8 @@ RUN go build -a -installsuffix cgo -o /src/bin/app -mod vendor
 
 # Run Stage
 FROM alpine
-ENV GIN_MODE=release
 RUN apk update && apk add ca-certificates
-EXPOSE 8080
+EXPOSE 5555
 WORKDIR /app
 COPY --from=Builder /src/bin/app /app
 ENTRYPOINT ./app
