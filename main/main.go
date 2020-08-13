@@ -82,7 +82,7 @@ func main() {
 	app.GenerateAppEndpoint(application, "/"+appName)
 	portNum := strconv.Itoa(viper.GetInt("port"))
 
-	ticker := time.NewTicker(5 * time.Second)
+	ticker := time.NewTicker(1 * time.Second)
 	quit := make(chan struct{})
 	go func() {
 		for {
@@ -108,7 +108,7 @@ func main() {
 				_, err := client.R().
 					SetHeader("Content-Type", "application/json").
 					SetBody(Request{Data: result}).
-					Post("http://perfutility-6.perf.lokal:5556/update-scoreboard")
+					Post("http://brontes_socket:5000/update-scoreboard")
 				logrus.Info(err)
 			case <-quit:
 				ticker.Stop()
